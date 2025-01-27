@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { VEHICLES } from '../constants';
+import { VEHICLES, DISTANCES } from '../constants';
 import { BookingDetails, Location, WeatherCondition } from '../types';
-// import { EmissionPrediction } from '../types/emission';
+import { EmissionPrediction } from '../types/emission';
 import toast from 'react-hot-toast';
 import { calculatePrice, calculateDuration } from '../utils/priceCalculator';
-// import { predictEmission } from '../utils/emissionCalculator';
+import { predictEmission } from '../utils/emissionCalculator';
 import PremiumSubscriptionPopup from './PremiumSubscriptionPopup';
 import AddOnsPopup from './AddOnsPopup';
 
@@ -33,7 +33,7 @@ export default function BookingForm({ from, to, onFromChange, onToChange }: Book
   const [journeyDate, setJourneyDate] = useState('');
   const [selectedVehicle, setSelectedVehicle] = useState('');
   const [passengers, setPassengers] = useState(0);
-  // const [emissionData, setEmissionData] = useState<EmissionPrediction | null>(null);
+  const [emissionData, setEmissionData] = useState<EmissionPrediction | null>(null);
   const [showPopup, setShowPopup] = useState(false);
   const [showAddOnsPopup, setShowAddOnsPopup] = useState(false);
   const [newBooking, setNewBooking] = useState<BookingDetails | null>(null);
@@ -87,23 +87,23 @@ export default function BookingForm({ from, to, onFromChange, onToChange }: Book
     setSelectedAddOns(addOns);
   };
 
-  // useEffect(() => {
-  //   const fetchEmission = async () => {
-  //     if (selectedVehicle && passengers > 0) {
-  //       const route = `${from}-${to}` as keyof typeof DISTANCES;
-  //       const distance = DISTANCES[route];
-  //       if (distance) {
-  //         try {
-  //           const prediction = await predictEmission(distance, selectedVehicle, passengers);
-  //           setEmissionData(prediction);
-  //         } catch (error) {
-  //           console.error('Failed to fetch emission data:', error);
-  //         }
-  //       }
-  //     }
-  //   };
-  //   fetchEmission();
-  // }, [selectedVehicle, passengers, from, to]);
+  useEffect(() => {
+    const fetchEmission = async () => {
+      if (selectedVehicle && passengers > 0) {
+        const route = `${from}-${to}` as keyof typeof DISTANCES;
+        const distance = DISTANCES[route];
+        if (distance) {
+          try {
+            const prediction = await predictEmission(distance, selectedVehicle, passengers);
+            setEmissionData(prediction);
+          } catch (error) {
+            console.error('Failed to fetch emission data:', error);
+          }
+        }
+      }
+    };
+    fetchEmission();
+  }, [selectedVehicle, passengers, from, to]);
 
   return (
     <div className="p-6">
@@ -262,7 +262,7 @@ export default function BookingForm({ from, to, onFromChange, onToChange }: Book
                       />
                     </div>
 
-                    {/* {emissionData && (
+                    {emissionData && (
                       <div className="mt-4 bg-emerald-900/20 p-4 rounded-lg border border-emerald-500/30">
                         <h4 className="text-emerald-300 font-semibold">Environmental Impact</h4>
                         <p className="text-emerald-200 mt-2">
@@ -276,7 +276,7 @@ export default function BookingForm({ from, to, onFromChange, onToChange }: Book
                           ))}
                         </div>
                       </div>
-                    )} */}
+                    )}
 
                     {passengers > 0 && (
                       <button
