@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #8B5CF6;
+  --color-secondary: #EC4899;
+  --color-background: #0F172A;
+}
+
+body {
+  background-color: var(--color-background);
+  color: white;
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500;
+}
+
+.gradient-border {
+  position: relative;
+  border: double 1px transparent;
+  border-radius: 0.5rem;
+  background-image: linear-gradient(var(--color-background), var(--color-background)), 
+                    linear-gradient(to right, #8B5CF6, #EC4899);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.animated-path {
+  stroke-dasharray: 10;
+  animation: dash 20s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 8s ease infinite;
+}
+
+/* Space Background Animation */
+@keyframes twinkle {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.space-bg {
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* Clerk Form Styles */
+.cl-rootBox {
+  position: relative;
+  z-index: 10;
+}
+
+.cl-card {
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cl-footerActionLink {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(90deg, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.cl-footerActionLink:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+}
