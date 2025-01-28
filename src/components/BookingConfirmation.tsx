@@ -44,7 +44,7 @@ const BookingConfirmation = () => {
     );
   }
 
-  const addOnsPrice = bookingDetails.addOns ? bookingDetails.addOns.length * 50 : 0; // Example price per add-on
+  const addOnsPrice = bookingDetails.addOns ? bookingDetails.addOns.reduce((total, addOn) => total + addOn.price, 0) : 0;
   const totalPriceWithAddOns = bookingDetails.totalPrice + addOnsPrice;
 
   return (
@@ -131,6 +131,13 @@ const BookingConfirmation = () => {
                     <p className="text-2xl font-bold gradient-text">
                       ${totalPriceWithAddOns.toLocaleString()}
                     </p>
+                  </div>
+                  <div>
+                    <p className="text-purple-300">Add-Ons</p>
+                    <ul className="list-disc list-inside text-gray-300">
+                      <li>Chicken biryani</li>
+                      <li>Space suit</li>
+                    </ul>
                   </div>
                 </div>
                 <div className="flex flex-col items-center justify-center">
