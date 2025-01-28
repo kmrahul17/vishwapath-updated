@@ -25,6 +25,12 @@ export interface VehicleConfig {
   maxCapacity: number;
   riskFactor: number;
 }
+export interface AddOn {
+  name: string;
+  price: number;
+}
+
+// Booking Types
 
 export interface VehicleConfiguration {
   speeds: Record<string, number>;
@@ -34,17 +40,16 @@ export interface VehicleConfiguration {
 
 // Booking Types
 export interface BookingDetails {
-  id?: string;
-  from: Location;
-  to: Location;
+  id: string;
+  from: string;
+  to: string;
   journeyDate: string;
   vehicle: string;
   passengers: number;
   totalPrice: number;
-  status?: BookingStatus;
-  bookingDate?: string;
-  addOns?: string[]; // Added addOns property
-  aiRecommendations?: string[];
+  status: string;
+  bookingDate: string;
+  addOns: AddOn[]; // Ensure addOns is an array of AddOn objects
 }
 
 export interface Booking {
