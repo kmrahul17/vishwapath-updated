@@ -68,7 +68,7 @@ export default function BookingForm({ from, to, onFromChange, onToChange }: Book
       totalPrice,
       status: 'upcoming',
       bookingDate: new Date().toISOString(),
-      addOns: selectedAddOns.map(addOn => addOn.name)
+      addOns: selectedAddOns
     };
 
     const existingBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
